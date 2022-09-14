@@ -1,0 +1,146 @@
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
+#cards {
+  display: flex;
+  flex-wrap: wrap; 
+  width: 100%;
+  margin: 0 auto;
+  /* 依據視窗換行 讓 flex item 們換行 */
+}
+
+.card {
+  /* 卡片在容器裡牌版 4排一排13張 */
+  /*basis 用百分比比例/pixel數等等css任何單位計算版面 100/13=7.多  
+   grow 表示剩餘空間要填滿嗎 不填就為0 
+   shrink 是指收縮 空間不夠用會不會搜縮大小 預設是1 讓卡片隨畫面配置變小 */
+
+  /* 修改：卡片需要分配剩餘空間 */
+  flex: 7% 1 1; /* 每個 item 分配容器寬度 */
+  /*flex內的三種設定值 
+  flex-basis,flex-grow,flex-shrink */
+
+  height: 8vw; /* 依視窗的寬度等比例變化 */
+  /* vw是一個視窗單位,100vw為完整視窗大小 */
+
+  border: 2px solid #e0e0e0;
+
+  /* 卡片內部元素排版 */
+  display: flex;
+  /* main axis主要軸 */
+  flex-direction: column;
+  /* 讓 card內的東西平均分散(主要軸column垂直向) */
+  justify-content: space-around;
+  /* 卡片邊距 */
+  margin: 2px;
+  /* 設定 box-sizing*/
+  box-sizing: border-box;
+}
+
+.card img {
+  /* 圖片讓它變小最大寬度設定為30% */
+  max-width: 30%;
+  /* align是排交叉軸用的 狀態是橫向水平置中 */
+  align-self: center;
+}
+
+.card p {
+  margin: 8px;
+  font-size: 24px;
+}
+
+/* 設定p的最後一個小孩是顛倒的 這裡使用偽類 */
+.card p:last-child {
+  transform: rotate(180deg); /* 讓撲克牌下面數字顛倒 */
+
+}
+
+.back {
+  background: url('https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png');
+  background-size: cover;
+  /* cover盡可能縮放背景圖片並保持圖像寬高比例（圖片不会被壓扁）。該圖以它的全部寬或者高覆蓋所在容器。當容器和背景大小不同時，圖的左右上下部分被剪裁 */
+}
+
+.paired {
+  background-color: #dae0e3;
+}
+
+
+#header {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  width: 100%;
+  /* 副軸row橫排到底 */
+  align-items: flex-end;
+}
+
+/* 這裡是row圖片和標題是橫排 */
+#header .title { 
+  display: flex;
+  width: 100%;
+  /* main axis row 主軸橫排到底 */
+  justify-content: flex-end;
+}
+
+#header .title img {
+  max-width: 4em;
+}
+
+#header .title h3 {
+  padding: 0 0.5em;
+}
+
+#header .score {
+  margin: 0;
+  color: #6c90ac;
+}
+
+#header .times {
+  margin-top: 0;
+}
+
+
+/* 這裡就是單純給他一個名字然後持續0.2秒 */
+/* 後面iteration意思是要播五次所以總共1秒 */
+.wrong {
+  animation: wrongAnimation 0.2s;
+  animation-iteration-count: 5;
+}
+
+
+/* 0 ~ 100% 的關鍵影格，這裡設定當被觸發就動，不會有時間過程所以就設定100% */
+@keyframes wrongAnimation {
+  to{
+    border: 2px solid #ffd54f
+  }
+}
+
+.completed {
+  /* 絕對位置依照視窗為基準因為前面都沒有relative */
+  position: absolute;
+  /* 一定會是在最上面 */
+  z-index: 999;
+  /* top的範圍在視窗比例的33% */
+  top: 33vh; 
+  background-color: rgba(232, 246, 254, 0.8);
+  /* 寬度為可視範圍為視窗比例的100% */
+  width: 100vw;
+  padding: 50px 0;/* 讓背景寬一點 */
+}
+
+    /* 修改p元素 */
+.completed > p {
+  font-size: 1.5em;
+  color: black;
+  text-align: center;
+  margin: 0;
+}
+
+/* p元素的第一個孩子修改 */
+.completed > p:first-child {
+  font-size: 3em;
+  font-weight: 700;
+  color: #758d9a;
+}
